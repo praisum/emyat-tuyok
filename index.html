@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>🌈 Emyat's Vibrant Fidget Playground 🎨</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Poppins', 'Quicksand', system-ui, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at 10% 20%, #ff4d6d, #f9c74f, #5773ff, #b5179e);
+      background-size: 300% 300%;
+      animation: vibrantFlow 12s ease infinite alternate;
+      padding: 1rem;
+      position: relative;
+    }
+
+    @keyframes vibrantFlow {
+      0% { background: radial-gradient(circle at 20% 30%, #ff4d6d, #ffb347, #3a86ff, #d64161); }
+      25% { background: radial-gradient(circle at 70% 40%, #f72585, #ffb703, #4895ef, #9c27b0); }
+      50% { background: radial-gradient(circle at 40% 70%, #ff006e, #ffbe0b, #7209b7, #4cc9f0); }
+      75% { background: radial-gradient(circle at 80% 20%, #e63946, #f4a261, #2a9d8f, #e9c46a); }
+      100% { background: radial-gradient(circle at 10% 80%, #ff66b5, #ffe45c, #5e60ce, #ff6d00); }
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      background-image: radial-gradient(circle at 20% 40%, rgba(255,255,200,0.2) 2%, transparent 2.5%),
+                        radial-gradient(circle at 75% 85%, rgba(255,200,255,0.25) 1.5%, transparent 2%);
+      background-size: 55px 55px, 80px 80px;
+      animation: floatDots 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes floatDots {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 100px 100px, 200px 50px; }
+    }
+
+    .app {
+      max-width: 560px;
+      margin: 0 auto;
+      background: rgba(20, 12, 38, 0.35);
+      backdrop-filter: blur(12px);
+      border-radius: 3rem;
+      padding: 1.8rem 1.2rem 2rem;
+      box-shadow: 0 30px 45px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,220,150,0.5), 0 0 0 6px rgba(255,100,200,0.2);
+      border: 1px solid rgba(255,235,120,0.6);
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero { text-align: center; margin-bottom: 1.8rem; }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FEE190, #FFB347, #FF6F91, #C77DFF, #72EFDD);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 12px rgba(0,0,0,0.3);
+      letter-spacing: -0.5px;
+      animation: titleGlow 1.8s infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { filter: drop-shadow(0 0 2px #ffb347); }
+      100% { filter: drop-shadow(0 0 12px #ff66c0); }
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(8px);
+      display: inline-block;
+      padding: 5px 20px;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #FFF9E0;
+      border: 1px solid #ffdf8c;
+      margin-bottom: 1rem;
+    }
+
+    #click-me-btn {
+      font-size: 16px;
+      font-weight: 700;
+      padding: 10px 32px;
+      border-radius: 60px;
+      background: linear-gradient(115deg, #FFD166, #FF6B6B, #9B5DE5);
+      border: none;
+      color: #1a0f2a;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 0 #6b3e8c;
+      letter-spacing: 1px;
+      display: block;
+      margin: 0 auto 0.6rem;
+    }
+
+    #click-me-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 0 #8a4fbb; filter: brightness(1.05); }
+    #click-me-btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #5b2e7a; }
+
+    /* Fixed-height reserved slot — message pops inside, zero layout shift */
+    .sparkle-slot {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sparkle-msg {
+      display: none;
+      max-width: 340px;
+      background: rgba(255,245,190,0.95);
+      backdrop-filter: blur(16px);
+      border: 2px solid #FFB347;
+      border-radius: 60px;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-weight: bold;
+      text-align: center;
+      color: #c13b7a;
+      box-shadow: 0 0 20px #ffbc6e;
+      animation: popGlow 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+
+    @keyframes popGlow {
+      0% { transform: scale(0.5); opacity: 0; filter: blur(3px); }
+      100% { transform: scale(1); opacity: 1; filter: blur(0); }
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      font-size: 14px;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 60px;
+      background: #221d3aee;
+      color: #f3e9ff;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(6px);
+      border: 1px solid #ffcf9a;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(125deg, #FFB347, #FF6B6B, #C77DFF);
+      color: #1c102b;
+      box-shadow: 0 0 18px #ffae70;
+      font-weight: 800;
+      border: 1px solid #fff1b5;
+    }
+
+    .tab-btn:hover:not(.active) { background: #4d3b84; transform: scale(1.02); color: #fff3c9; }
+
+    .section { display: none; animation: fadeSlide 0.3s ease-out; }
+    .section.active { display: block; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .popit-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      padding: 8px 18px;
+      border-radius: 80px;
+      margin-bottom: 1rem;
+      border: 1px solid #ffd966;
+    }
+
+    .timer-box {
+      font-family: monospace;
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: #00000066;
+      padding: 4px 14px;
+      border-radius: 60px;
+      letter-spacing: 2px;
+      color: #fbffb4;
+      text-shadow: 0 0 6px #f0ff00;
+    }
+
+    .popit-stats {
+      font-size: 13px;
+      background: #f3b33d55;
+      padding: 5px 15px;
+      border-radius: 40px;
+      font-weight: bold;
+      backdrop-filter: blur(4px);
+      color: #ffffbb;
+    }
+
+    #popit-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      max-width: 400px;
+      margin: 1rem auto;
+    }
+
+    .bubble {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: radial-gradient(circle at 35% 35%, #FFE5A3, #FFA07A);
+      box-shadow: 0 6px 0 #b45f2b;
+      transition: transform 0.07s, box-shadow 0.1s;
+    }
+
+    .bubble.popped {
+      background: radial-gradient(circle at 30% 30%, #70d6ff, #5a48b0);
+      box-shadow: 0 1px 0 #3a2660;
+      transform: scale(0.8);
+      filter: brightness(1.1);
+    }
+
+    .bubble:hover:not(.popped) { transform: scale(1.1); background: radial-gradient(circle at 30% 30%, #FFD966, #FF9F4A); }
+
+    .reset-btn {
+      display: block;
+      margin: 1rem auto 0;
+      padding: 8px 28px;
+      border-radius: 60px;
+      background: #ffb347dd;
+      border: 1px solid #ffec9f;
+      color: #2e1a48;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    }
+
+    .reset-btn:hover { background: #ff9f2e; transform: scale(0.97); }
+
+    #buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    .sound-btn {
+      aspect-ratio: 1;
+      border-radius: 32px;
+      background: linear-gradient(145deg, #f2b85b, #ff896b);
+      border: 2px solid #fff7c0;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #251c32;
+      transition: all 0.08s linear;
+      box-shadow: 0 8px 0 #aa6f3c;
+    }
+
+    .sound-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #aa6f3c; background: linear-gradient(145deg, #ffaa55, #ff7a55); }
+    .sound-btn .sicon { font-size: 34px; filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2)); }
+
+    #spinner-area { text-align: center; padding: 1rem 1rem 0; }
+
+    .spinner-static-base {
+      position: relative;
+      display: inline-block;
+      cursor: grab;
+      filter: drop-shadow(0 0 12px #ffb347) drop-shadow(0 0 8px #ff66aa);
+    }
+
+    .spinner-static-base:active { cursor: grabbing; }
+    #spinner-svg { display: block; margin: 0 auto; }
+
+    /* Fixed-height text zone — always reserves the same vertical space,
+       so the SVG above never jumps when hint/speed text changes */
+    .spinner-text-zone {
+      height: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    #spin-hint {
+      font-size: 14px;
+      font-weight: 600;
+      background: #00000088;
+      display: inline-block;
+      padding: 5px 20px;
+      border-radius: 50px;
+      color: #fff7cf;
+      backdrop-filter: blur(5px);
+    }
+
+    /* visibility:hidden keeps layout space; display:none would cause a shift */
+    #spin-speed {
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: #ffb347cc;
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: 60px;
+      color: #2c1a4e;
+      font-family: monospace;
+      min-height: 32px;
+      visibility: hidden;
+    }
+
+    #spin-speed.visible { visibility: visible; }
+
+    #counter-area { text-align: center; padding: 10px 0; }
+
+    #count-display {
+      font-size: 88px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FFE484, #FFB347, #FF6F91);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px #ffb86c;
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    #count-btn {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #FFDF85, #FF9A5E);
+      border: 4px solid #FFF0BB;
+      font-size: 52px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.05s linear;
+      box-shadow: 0 14px 0 #bd7139;
+      color: #4a2610;
+    }
+
+    #count-btn:active { transform: scale(0.92); box-shadow: 0 4px 0 #bd7139; }
+
+    #reset-count {
+      background: none;
+      border: none;
+      color: #fff2bb;
+      margin-top: 18px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+      text-shadow: 0 0 3px black;
+    }
+
+    @media (max-width: 480px) {
+      .app { padding: 1rem; }
+      .hero-title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div class="hero">
+    <div class="hero-title">🌈 Emyat Stress Reliever Model: 6000 🌈</div>
+    <div class="hero-sub">💥 pop • spin • vibe • color explosion 💥</div>
+    <button id="click-me-btn" onclick="showMsg()">✨ click meeee ✨</button>
+    <!-- Fixed-height slot — message appears here, nothing below ever shifts -->
+    <div class="sparkle-slot">
+      <div class="sparkle-msg" id="message-box">hellu Emyat, I hope you enjoy this small fidget website that I made ✨🦄</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('popit',this)">🎈 Pop-it</button>
+    <button class="tab-btn" onclick="switchTab('buttons',this)">🎵 Sounds</button>
+    <button class="tab-btn" onclick="switchTab('spinner',this)">🌀 Spinner</button>
+    <button class="tab-btn" onclick="switchTab('counter',this)">🔘 Clicker</button>
+  </div>
+
+  <!-- POPIT -->
+  <div id="popit" class="section active">
+    <div class="popit-header">
+      <div class="timer-box">⏱️ <span id="popit-timer">00.00</span></div>
+      <div class="popit-stats">🎯 popped: <span id="popit-count">0</span> / <span id="total-bubbles">24</span></div>
+    </div>
+    <div id="popit-grid"></div>
+    <button class="reset-btn" onclick="resetPopitWithTimer()">⟳ reset all bubbles</button>
+  </div>
+
+  <!-- SOUNDS -->
+  <div id="buttons" class="section">
+    <div id="buttons-grid">
+      <button class="sound-btn" onclick="playTone(440,0.3,'sine')"><span class="sicon">🫧</span>soft</button>
+      <button class="sound-btn" onclick="playTone(700,0.08,'square')"><span class="sicon">💜</span>clicky</button>
+      <button class="sound-btn" onclick="playTone(200,0.5,'sine')"><span class="sicon">🌊</span>deep</button>
+      <button class="sound-btn" onclick="playTone(1200,0.06,'sawtooth')"><span class="sicon">⚡</span>sharp</button>
+      <button class="sound-btn" onclick="playTone(900,0.12,'triangle')"><span class="sicon">🌸</span>ping</button>
+      <button class="sound-btn" onclick="playNoise(0.2)"><span class="sicon">☁️</span>noise</button>
+      <button class="sound-btn" onclick="playTone(330,0.4,'sine')"><span class="sicon">🌿</span>hum</button>
+      <button class="sound-btn" onclick="playTone(523,0.15,'triangle')"><span class="sicon">🍬</span>pop</button>
+      <button class="sound-btn" onclick="playClick()"><span class="sicon">✦</span>tick</button>
+    </div>
+  </div>
+
+  <!-- SPINNER -->
+  <div id="spinner" class="section">
+    <div id="spinner-area">
+      <div class="spinner-static-base" id="spinner-static-container">
+        <svg id="spinner-svg" width="210" height="210" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="94" fill="none" stroke="rgba(255,220,150,0.3)" stroke-width="2" stroke-dasharray="6 6"/>
+          <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,200,100,0.2)" stroke-width="1"/>
+          <g id="spinner-rotating-part">
+            <defs>
+              <radialGradient id="gradCore" cx="35%" cy="35%">
+                <stop offset="0%" stop-color="#FFE484" />
+                <stop offset="100%" stop-color="#FF6F91" />
+              </radialGradient>
+              <linearGradient id="armGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFB347" />
+                <stop offset="100%" stop-color="#FF4D6D" />
+              </linearGradient>
+              <linearGradient id="armGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#C77DFF" />
+                <stop offset="100%" stop-color="#3A86FF" />
+              </linearGradient>
+              <linearGradient id="armGrad3" x1="50%" y1="0%" x2="50%" y2="100%">
+                <stop offset="0%" stop-color="#06FFA5" />
+                <stop offset="100%" stop-color="#3BDE7C" />
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="24" fill="url(#gradCore)" stroke="#FFD966" stroke-width="2.5" />
+            <g transform="rotate(0 100 100)">
+              <ellipse cx="100" cy="48" rx="32" ry="24" fill="url(#armGrad1)" stroke="#FFF5B0" stroke-width="2" />
+              <circle cx="100" cy="48" r="13" fill="#FFF2D7" stroke="#FFB347" stroke-width="1.5" />
+            </g>
+            <g transform="rotate(120 100 100)">
+              <ellipse cx="100" cy="48" rx="32" ry="24" fill="url(#armGrad2)" stroke="#E2C5FF" stroke-width="2" />
+              <circle cx="100" cy="48" r="13" fill="#F2EAFF" stroke="#C77DFF" stroke-width="1.5" />
+            </g>
+            <g transform="rotate(240 100 100)">
+              <ellipse cx="100" cy="48" rx="32" ry="24" fill="url(#armGrad3)" stroke="#BFFFC2" stroke-width="2" />
+              <circle cx="100" cy="48" r="13" fill="#DEFFE6" stroke="#3BDE7C" stroke-width="1.5" />
+            </g>
+            <circle cx="100" cy="100" r="18" fill="#FFF1B5" stroke="#FFAE5E" stroke-width="2.5" />
+            <circle cx="100" cy="100" r="8" fill="#FF7FAA" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Fixed-height zone: hint + speed label always occupy the same space -->
+      <div class="spinner-text-zone">
+        <span id="spin-hint">🌀 drag to spin 🌀</span>
+        <span id="spin-speed"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLICKER -->
+  <div id="counter" class="section">
+    <div id="counter-area">
+      <div id="count-display">0</div>
+      <button id="count-btn" onclick="increment()">+</button>
+      <button id="reset-count" onclick="resetCount()">reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ========== AUDIO ==========
+  let audioCtx = null;
+  function getCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+  function playTone(freq, dur, type) {
+    try {
+      const ctx = getCtx();
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type; o.frequency.value = freq;
+      g.gain.setValueAtTime(0.28, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(); o.stop(ctx.currentTime + dur);
+    } catch(e) { console.log(e); }
+  }
+  function playNoise(dur) {
+    const ctx = getCtx();
+    const buf = ctx.createBuffer(1, ctx.sampleRate * dur, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    const src = ctx.createBufferSource(), g = ctx.createGain();
+    src.buffer = buf;
+    g.gain.setValueAtTime(0.2, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    src.connect(g); g.connect(ctx.destination); src.start();
+  }
+  function playClick() {
+    const ctx = getCtx();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'square'; o.frequency.value = 1500;
+    g.gain.setValueAtTime(0.5, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime + 0.04);
+  }
+
+  // ========== POPIT ==========
+  const gridContainer = document.getElementById('popit-grid');
+  let poppedCount = 0;
+  const totalBubbles = 24;
+  let timerActive = false, startTime = null, timerInterval = null;
+  const timerElement = document.getElementById('popit-timer');
+  const poppedSpan = document.getElementById('popit-count');
+  document.getElementById('total-bubbles').textContent = totalBubbles;
+
+  function updatePopitUI() {
+    poppedSpan.textContent = poppedCount;
+    if (poppedCount === totalBubbles && timerActive) {
+      if (timerInterval) clearInterval(timerInterval);
+      timerActive = false;
+      playTone(880, 0.3, 'sine');
+      playTone(1046, 0.4, 'triangle');
+      const msgBox = document.getElementById('message-box');
+      msgBox.textContent = "🎉✨ FULL POP! you're a fidget master ✨🎉";
+      msgBox.style.display = 'block';
+      setTimeout(() => { msgBox.style.display = 'none'; msgBox.textContent = "hellu Emyat, I hope you enjoy this small fidget website that I made ✨🦄"; }, 3000);
+    }
+  }
+
+  function startTimerIfNeeded() {
+    if (!timerActive && poppedCount < totalBubbles && poppedCount > 0) {
+      timerActive = true;
+      startTime = performance.now();
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (!timerActive) return;
+        const elapsed = (performance.now() - startTime) / 1000;
+        const seconds = Math.floor(elapsed);
+        const cents = Math.floor((elapsed * 100) % 100);
+        timerElement.textContent = `${seconds}.${cents < 10 ? '0' + cents : cents}`;
+      }, 20);
+    }
+  }
+
+  function resetPopitWithTimer() {
+    document.querySelectorAll('.bubble').forEach(b => b.classList.remove('popped'));
+    poppedCount = 0;
+    updatePopitUI();
+    if (timerInterval) clearInterval(timerInterval);
+    timerActive = false; startTime = null;
+    timerElement.textContent = "00.00";
+  }
+
+  for (let i = 0; i < totalBubbles; i++) {
+    const b = document.createElement('button');
+    b.className = 'bubble';
+    b.onclick = () => {
+      if (!b.classList.contains('popped')) {
+        b.classList.add('popped');
+        poppedCount++;
+        updatePopitUI();
+        playTone(360 + Math.random() * 200, 0.1, 'sine');
+        startTimerIfNeeded();
+      }
+    };
+    gridContainer.appendChild(b);
+  }
+  window.resetPopitWithTimer = resetPopitWithTimer;
+
+  // ========== SPINNER ==========
+  let angleDeg = 0, velocity = 0, lastAngle = null, lastTime = null, spinAF = null;
+  let isDragging = false;
+  const rotatingPart = document.getElementById('spinner-rotating-part');
+  const spinnerContainer = document.getElementById('spinner-static-container');
+  const speedLabelSpan = document.getElementById('spin-speed');
+  const hintSpan = document.getElementById('spin-hint');
+
+  function getAngleRad(e) {
+    const rect = spinnerContainer.getBoundingClientRect();
+    const scale = rect.width / 200;
+    const clientX = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
+    const clientY = e.clientY !== undefined ? e.clientY : e.touches[0].clientY;
+    return Math.atan2(clientY - rect.top - 100 * scale, clientX - rect.left - 100 * scale);
+  }
+
+  function applyRotation() {
+    rotatingPart.setAttribute('transform', `rotate(${angleDeg} 100 100)`);
+  }
+
+  function startDrag(e) {
+    e.preventDefault();
+    isDragging = true;
+    if (spinAF) cancelAnimationFrame(spinAF);
+    velocity = 0;
+    lastAngle = getAngleRad(e);
+    lastTime = performance.now();
+    hintSpan.textContent = 'aaaaaaaaa';
+  }
+
+  function onDrag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const now = performance.now();
+    let dt = Math.min((now - lastTime) / 1000, 0.05);
+    const a = getAngleRad(e);
+    let delta = a - lastAngle;
+    if (delta > Math.PI) delta -= 2 * Math.PI;
+    if (delta < -Math.PI) delta += 2 * Math.PI;
+    velocity = dt > 0 ? (delta * 180 / Math.PI) / dt : velocity;
+    angleDeg += delta * 180 / Math.PI;
+    lastAngle = a;
+    lastTime = now;
+    applyRotation();
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    spinAF = requestAnimationFrame(freewheel);
+  }
+
+  function freewheel() {
+    velocity *= 0.985;
+    angleDeg += velocity * 0.016;
+    applyRotation();
+    const rpm = Math.abs(velocity / 6);
+    if (rpm > 12) {
+      speedLabelSpan.textContent = `🌀 ${Math.round(rpm)} RPM 🌀`;
+      speedLabelSpan.classList.add('visible');
+      hintSpan.textContent = '✨ weeeeee ✨';
+    } else if (rpm > 3) {
+      speedLabelSpan.textContent = `${Math.round(rpm)} rpm • vivid spin`;
+      speedLabelSpan.classList.add('visible');
+      hintSpan.textContent = 'nalipong na ko';
+    } else {
+      speedLabelSpan.textContent = '';
+      speedLabelSpan.classList.remove('visible');
+      hintSpan.textContent = '🌀 drag to spin 🌀';
+    }
+    if (Math.abs(velocity) > 0.5) spinAF = requestAnimationFrame(freewheel);
+    else spinAF = null;
+  }
+
+  spinnerContainer.addEventListener('mousedown', startDrag);
+  window.addEventListener('mousemove', onDrag);
+  window.addEventListener('mouseup', endDrag);
+  spinnerContainer.addEventListener('touchstart', startDrag, { passive: false });
+  window.addEventListener('touchmove', onDrag, { passive: false });
+  window.addEventListener('touchend', endDrag);
+
+  // ========== CLICKER ==========
+  let count = 0;
+  function increment() {
+    count++;
+    document.getElementById('count-display').textContent = count;
+    playTone(600 + (count % 7) * 25, 0.07, 'sine');
+  }
+  function resetCount() {
+    count = 0;
+    document.getElementById('count-display').textContent = 0;
+    playTone(320, 0.1, 'sine');
+  }
+  window.increment = increment;
+  window.resetCount = resetCount;
+
+  // ========== TABS ==========
+  function switchTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+  window.switchTab = switchTab;
+
+  function showMsg() {
+    const box = document.getElementById('message-box');
+    box.style.display = 'block';
+    setTimeout(() => { box.style.display = 'none'; }, 4000);
+  }
+  window.showMsg = showMsg;
+</script>
+</body>
+</html>
